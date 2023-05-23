@@ -656,8 +656,8 @@ class ECAPA_TDNN(torch.nn.Module):
             out_channels=lin_neurons,
             kernel_size=1,)
 
-        print(time.strftime("%m-%d %H:%M:%S") + " Model para number = %.2f" % (
-                    sum(param.numel() for param in self.parameters()) / 1024 / 1024))
+#         print(time.strftime("%m-%d %H:%M:%S") + " Model para number = %.2f" % (
+#                     sum(param.numel() for param in self.parameters()) / 1024 / 1024))
 
 
     def forward(self, x, lengths=None):
