@@ -653,8 +653,9 @@ class P_vectors(torch.nn.Module):
             out_channels=192,
             kernel_size=1, )
 ########################################################
-# commont these two lines out duaring training stage 2
-# uncommont these two lines duaring training stage 3
+# uncommont these two lines duaring training stage 2
+# commont these two lines out duaring training stage 3
+
         # for p in self.parameters():  
         #     p.requires_grad = False
 ########################################################
