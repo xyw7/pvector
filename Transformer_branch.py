@@ -507,7 +507,7 @@ class ECAPA_TDNN(torch.nn.Module):
         assert len(channels) == len(dilations)
         self.channels = channels
 
-        # self.enlarge1_t = Repres()
+        self.enlarge1_t = Repres()
 
         # The initial TDNN layer
         self.layer1_t = TDNNBlock(
@@ -621,7 +621,7 @@ class ECAPA_TDNN(torch.nn.Module):
 
         x = x[:, :, :3 * (x.size(-1) // 3)]
 
-        # x = self.enlarge1_t(x)
+        x = self.enlarge1_t(x)
 
         x = self.layer1_t(x)
 
@@ -629,24 +629,14 @@ class ECAPA_TDNN(torch.nn.Module):
 
         x_t_1 = self.encoder2(self.encoder1(self.makepatch(x).transpose(1, 2)))
 
-        # x2 = self.SER2(x1+self.p1*self.sa1(self.ac1(self.bridge1(F.interpolate(x_t.transpose(1, 2), size=x_t.size(1) * 3)))))
+       
 
         x_t_2 = self.encoder5(self.encoder4(self.encoder3(x_t_1)))
 
-        # x3 = self.SER3(x2 + self.p3*self.sa3(self.ac3(self.bridge3(F.interpolate(x_t.transpose(1, 2), size=x_t.size(1) * 3)))))
+     
         x_t_3 = self.encoder8(self.encoder7(self.encoder6(x_t_2)))
 
-        # Multi-layer feature aggregation
-        # x = torch.cat((x1,x2,x3), dim=1)
-        # # print(x.shape)
-        # x = self.mfa(x)
-        #
-        # # Attentive Statistical Pooling
-        # x = self.asp(x, lengths=lengths)
-        # x = self.asp_bn(x)
-        #
-        # # Final linear transformation
-        # x = self.fc(x)
+     
 
         x_t = torch.cat((x_t_1,x_t_2,x_t_3),dim=2).transpose(1, 2)
         # print(x_t.shape)
@@ -739,7 +729,6 @@ class Classifier(torch.nn.Module):
         # x_c = F.linear(F.normalize(x_c.squeeze(1)), F.normalize(self.weight))
         x_original = F.linear(F.normalize(x.squeeze(1)), F.normalize(self.weight_t))
         return x_original.unsqueeze(1)
-        # x_oriloss = F.linear(F.normalize(x.squeeze(1)), F.normalize(self.weight_t_ori))
-        # return x_original.unsqueeze(1) , x_oriloss
+   
 
 
