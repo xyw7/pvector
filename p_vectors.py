@@ -493,7 +493,7 @@ class C2R(torch.nn.Module):
         # x = self.p*x
         return x
 
-class ECAPA_TDNN(torch.nn.Module):
+class P_vectors(torch.nn.Module):
     """An implementation of the speaker embedding model in a paper.
     "ECAPA-TDNN: Emphasized Channel Attention, Propagation and Aggregation in
     TDNN Based Speaker Verification" (https://arxiv.org/abs/2005.07143).
@@ -652,10 +652,12 @@ class ECAPA_TDNN(torch.nn.Module):
             in_channels=512 * 3,
             out_channels=192,
             kernel_size=1, )
-
-        # for p in self.parameters():  # 加入这两行代码
+########################################################
+# commont these two lines out duaring training stage 2
+# uncommont these two lines duaring training stage 3
+        # for p in self.parameters():  
         #     p.requires_grad = False
-
+########################################################
         self.fc_all = Conv1d(in_channels=384,
             out_channels=192,
             kernel_size=1)
@@ -775,8 +777,7 @@ class Classifier(torch.nn.Module):
 
         super().__init__()
         self.blocks = nn.ModuleList()
-        # for p in self.parameters():  # 加入这两行代码
-        #     p.requires_grad = False
+
 
         for block_index in range(lin_blocks):
             self.blocks.extend(
