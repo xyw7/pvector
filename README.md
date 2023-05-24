@@ -29,3 +29,8 @@ In stage 2, (1) transfer the pre-trained weights of TDNN and Transformer branche
 (3) train the unforzen weights (EAL and the brand new classifier) for 6 epochs.
 ### training stage 3
 In stage 3, unfreeze all the weights in p_vectors and train it for 6 epochs.
+
+
+## To do
+1. update more specific codes
+2. update results
